@@ -88,6 +88,13 @@ Files **modified** for this modification (4 files)
     /work/src/org/kuali/kfs/module/purap/document/PurchaseOrderAmendmentDocument.java
     /work/src/org/kuali/kfs/module/purap/document/authorization/PurchaseOrderAmendmentDocumentPresentationController.java
 
+<h2>Extra Local Files</h2>
+
+Extra local files for this modification that have been included for some reason or another. Most likely, these files are not code, but instead might be specifications, or other documentation. (2 files)
+
+* [`extra_files/KFSI-4978.odg`](Fiscal-Officer-Cannot-Edit-Accounting-Lines-or-Approve-POA/blob/master/extra_files/KFSI-4978.odg)
+* [`extra_files/KFSI-4978.txt`](Fiscal-Officer-Cannot-Edit-Accounting-Lines-or-Approve-POA/blob/master/extra_files/KFSI-4978.txt)
+
 <h2>Post Mod Changes</h2>
 
 For each file that was changed or added for this modification, I've looked at its history in subversion (`svn log <file_name>`) to find whether later fixes were committed against this modification that I might have missed. There were some :) They may be fixes to the modification, or further enhancements, or changes completely unrelated. Please contact the UA for more information about a given revision number, or Jira ticket. Here they are:
