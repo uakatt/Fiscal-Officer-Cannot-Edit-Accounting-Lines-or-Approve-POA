@@ -1,0 +1,64 @@
+                (...)                            (...)
+                  |                                |
+FinancialSystemTransactionalDocumentBase  LedgerPostingDocument
+                  ^                      /         ^
+                  |                     /          |
+                  |                    /           |
+              (extends)       (implements)     (extends)
+                  |             /                  |
+                  |            /                   |
+      LedgerPostingDocumentBase    GeneralLedgerPostingDocument   GeneralLedgerPendingEntrySource
+                  ^               /               ^              /      /
+                  |              /                |             /      /
+                  |             /                 |            /      /
+              (extends)  (implements)         (extends)  (extends)   /
+                  |           /                   |     /           /
+                  |          /                    |    /           /
+   GeneralLedgerPostingDocumentBase  AccountingDocument           /
+                  ^                 /    |                       /
+                  |                /     |             (implements)
+                  |               /  (extends)          /
+                  |              /       |             /      PurapItemOperations
+              (extends)  (implements)    |            /              |
+                  |        /             |           /           (extends)
+                  |       /     ---------|----------/                |
+                  |      /     /         |                           |
+         AccountingDocumentBase      PurchasingAccountsPayableDocument
+                  ^                 /                        |
+                  |                /     AmountTotaling      |
+                  |               /         /                |
+              (extends)  (implements)  (implements)     (extends)
+                  |       /            /                    |
+                  |      /            /                     |
+ PurchasingAccountsPayableDocumentBase     PurchasingDocument
+                  ^                       /
+                  |                      /
+              (extends)       (implements)
+                  |            /
+                  |           /
+        PurchasingDocumentBase     MultiselectableDocSearchConversion
+                  ^               /
+                  |              /
+              (extends)     (implements)
+                  |            /
+                  |           /
+         PurchaseOrderDocument
+                           ^
+                           |
+                       (extends)
+                          /|\
+BatchPurchaseOrderDocument | \__PurchaseOrderCloseDocument
+                           |  \
+                           |   \__PurchaseOrderPaymentHoldDocument
+                           |    \
+                           |     \__PurchaseOrderRemoveHoldDocument
+                           |      \
+                           |       \__PurchaseOrderReopenDocument
+                           |        \
+                           |         \__PurchaseOrderRetransmitDocument
+                           |          \
+                           |           \__PurchaseOrderSplitDocument
+                           |            \
+                           |             \__PurchaseOrderVoidDocument
+                           |
+             PurchaseOrderAmendmentDocument
