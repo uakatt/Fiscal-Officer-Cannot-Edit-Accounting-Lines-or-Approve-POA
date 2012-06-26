@@ -1,0 +1,24 @@
+Index: financial-system/kfs/trunk/work/src/org/kuali/kfs/module/purap/document/PurchaseOrderAmendmentDocument.java
+===================================================================
+--- financial-system/kfs/trunk/work/src/org/kuali/kfs/module/purap/document/PurchaseOrderAmendmentDocument.java	(revision 21422)
++++ financial-system/kfs/trunk/work/src/org/kuali/kfs/module/purap/document/PurchaseOrderAmendmentDocument.java	(revision 21423)
+@@ -28,6 +28,7 @@
+ import org.kuali.kfs.module.purap.document.service.PurapService;
+ import org.kuali.kfs.module.purap.document.service.PurchaseOrderService;
+ import org.kuali.kfs.module.purap.document.service.ReceivingService;
++import org.kuali.kfs.module.purap.service.PurapAccountingService;
+ import org.kuali.kfs.module.purap.service.PurapGeneralLedgerService;
+ import org.kuali.kfs.sys.KFSConstants;
+ import org.kuali.kfs.sys.businessobject.AccountingLine;
+@@ -155,4 +156,11 @@
+         throw new UnsupportedOperationException("Cannot answer split question for this node you call \""+nodeName+"\"");
+     } 
+ 
++    //**START AZ** KFSI-4978: update the accounting line amounts before saving so the updated amounts persist.
++    @Override
++    public void prepareForSave(KualiDocumentEvent event) {
++        SpringContext.getBean(PurapAccountingService.class).updateAccountAmounts(this);
++        super.prepareForSave(event);
++    }
++    //**END AZ**
+ }

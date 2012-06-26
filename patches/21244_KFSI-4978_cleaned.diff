@@ -1,0 +1,61 @@
+Index: work/src/org/kuali/kfs/module/purap/document/authorization/PurchaseOrderAmendmentDocumentPresentationController.java
+===================================================================
+--- work/src/org/kuali/kfs/module/purap/document/authorization/PurchaseOrderAmendmentDocumentPresentationController.java	(revision 21243)
++++ work/src/org/kuali/kfs/module/purap/document/authorization/PurchaseOrderAmendmentDocumentPresentationController.java	(revision 21244)
+@@ -26,6 +26,7 @@
+ import org.kuali.rice.kns.document.Document;
+ import org.kuali.rice.kns.workflow.service.KualiWorkflowDocument;
+ 
++import edu.arizona.kfs.module.purap.PurapWorkflowConstants;
+ 
+ public class PurchaseOrderAmendmentDocumentPresentationController extends PurchaseOrderDocumentPresentationController {
+     
+@@ -35,7 +36,9 @@
+         // po amend docs in CGIP status are only editable when in Initiated or Saved status
+         if (PurchaseOrderStatuses.CHANGE_IN_PROCESS.equals(poDocument.getStatusCode())) {
+             KualiWorkflowDocument workflowDoc = document.getDocumentHeader().getWorkflowDocument();
+-            if (!workflowDoc.stateIsInitiated() && !workflowDoc.stateIsSaved()) {
++            //**START AZ** KFSI-4978 KITT-2848  KevinMcO
++            if (!workflowDoc.stateIsInitiated() && !workflowDoc.stateIsSaved() && !SpringContext.getBean(PurapService.class).isDocumentStoppedInRouteNode((PurchasingAccountsPayableDocument) document, PurapWorkflowConstants.ACCOUNT_REVIEW)) {
++            //**END AZ**
+                 return false;
+             }
+         }    
+Index: work/src/edu/arizona/kfs/module/purap/PurapWorkflowConstants.java
+===================================================================
+--- work/src/edu/arizona/kfs/module/purap/PurapWorkflowConstants.java	(revision 21243)
++++ work/src/edu/arizona/kfs/module/purap/PurapWorkflowConstants.java	(revision 21244)
+@@ -18,4 +18,6 @@
+ public class PurapWorkflowConstants extends org.kuali.kfs.module.purap.PurapWorkflowConstants {
+     public static final String UNIT_PRICE_OVERAGE_REVIEW = "RequiresUnitPriceOverageReview";
+     public static final String UNIT_PRICE_OVERAGE_PACS_REVIEW = "RequiresUnitPriceOveragePacsReviewSplit";
++    //**START AZ** KFSI-4978 KITT-2848  KevinMcO
++    public static final String ACCOUNT_REVIEW = "Account";
+ }
+Index: work/src/edu/arizona/kfs/module/purap/document/authorization/UaPurchaseOrderAmendmentDocumentPresentationController.java
+===================================================================
+--- work/src/edu/arizona/kfs/module/purap/document/authorization/UaPurchaseOrderAmendmentDocumentPresentationController.java	(revision 21243)
++++ work/src/edu/arizona/kfs/module/purap/document/authorization/UaPurchaseOrderAmendmentDocumentPresentationController.java	(revision 21244)
+@@ -42,22 +42,6 @@
+ //**END AZ** 
+ 
+     /**
+-     * @see org.kuali.kfs.module.purap.document.authorization.PurchaseOrderDocumentPresentationController#canEdit(org.kuali.rice.kns.document.Document)
+-     */
+-    @Override
+-    protected boolean canEdit(Document document) {
+-        PurchaseOrderDocument poDocument = (PurchaseOrderDocument) document;
+-        if (PurchaseOrderStatuses.CHANGE_IN_PROCESS.equals(poDocument.getStatusCode())) {
+-            KualiWorkflowDocument workflowDoc = document.getDocumentHeader().getWorkflowDocument();
+-            if (!workflowDoc.stateIsInitiated() && !workflowDoc.stateIsSaved() && !this.isAccountNode(document)) {
+-                return false;
+-            }
+-        }
+-
+-        return super.canEdit(document);
+-    }
+-
+-    /**
+      * @see org.kuali.kfs.module.purap.document.authorization.PurchaseOrderDocumentPresentationController#getEditModes(org.kuali.rice.kns.document.Document)
+      */
+     @Override

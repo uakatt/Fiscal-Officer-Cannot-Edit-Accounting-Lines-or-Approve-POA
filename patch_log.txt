@@ -1,0 +1,18 @@
+------------------------------------------------------------------------
+r21244 | kevinmco@CATNET.ARIZONA.EDU | 2011-08-18 12:24:47 -0700 (Thu, 18 Aug 2011) | 1 line
+Changed paths:
+   M /financial-system/kfs/trunk/work/src/edu/arizona/kfs/module/purap/PurapWorkflowConstants.java
+   M /financial-system/kfs/trunk/work/src/edu/arizona/kfs/module/purap/document/authorization/UaPurchaseOrderAmendmentDocumentPresentationController.java
+   M /financial-system/kfs/trunk/work/src/org/kuali/kfs/module/purap/document/authorization/PurchaseOrderAmendmentDocumentPresentationController.java
+
+KFSI-4978 KITT-2848 Fiscal Officer can not edit Accounting Lines
+------------------------------------------------------------------------
+------------------------------------------------------------------------
+r21423 | jpbriede@CATNET.ARIZONA.EDU | 2011-08-29 16:52:05 -0700 (Mon, 29 Aug 2011) | 3 lines
+Changed paths:
+   M /financial-system/kfs/trunk/work/src/org/kuali/kfs/module/purap/document/PurchaseOrderAmendmentDocument.java
+
+KFSI-4978
+KITT-2848
+Updating the accounting lines on a PurchaseOrderAmendmentDocument before saving so the accounting line amounts reflect any change in the accounting line percentages.
+------------------------------------------------------------------------
